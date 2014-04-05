@@ -1,0 +1,9 @@
+{
+  "name": "set-review-grader",
+  "version": "0.0.1",
+  "dependencies": {
+    "synth": "~0.4.5"
+  },
+  "devDependencies": {
+  }
+}
