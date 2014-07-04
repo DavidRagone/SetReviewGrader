@@ -1,0 +1,55 @@
+// TODO - consider compass, bootstrap, foundation
+body {
+  background: lightslategray;
+}
+.leftContainer {
+  float: left;
+  height: 99vh;
+  width: 75%;
+}
+.cardSlider {
+  width: 100%;
+  h3 {
+  }
+  .gradeOptions {
+    display: block;
+    .grade {
+      float: left;
+      text-align: center;
+      width: 20%;
+    }
+  }
+  .currentCard {
+    background: #999;
+    height: 250px;
+    margin: 50px auto;
+    width: 180px;
+  }
+  .currentCardDetailsCenteringContainer {
+    // TODO - find a better way to center the middle line of the inner content w/o centering text
+    left: 35%;
+    position: relative;
+  }
+  .currentCardDetails {
+
+    .currentCardDetailsPropertyName {
+      display: inline;
+      font-weight: 600;
+    }
+    .currentCardDetailsPropertyValue {
+      display: inline;
+      padding: 4px;
+    }
+    .name { }
+    .type { }
+    .colors { }
+    .cost { }
+    .typeLine { }
+    .textBox { }
+    .number { }
+  }
+}
+.rightContainer {
+  float: left;
+  height: 99vh;
+}

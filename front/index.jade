@@ -1,5 +1,5 @@
 doctype html
-html
+html(ng-app)
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
@@ -15,7 +15,50 @@ html
     for jsFile in jsFiles
       script(src=jsFile)
   body
-    h1= appName
+    .leftContainer
+      h1 some title
+      .cardSlider
+        h3 explanation of what to do
+        .gradeOptions
+          .grade.gradeF F
+          .grade.gradeD D
+          .grade.gradeC C
+          .grade.gradeB B
+          .grade.gradeA A
+        .currentCard
+        .currentCardDetailsCenteringContainer
+          .currentCardDetails
+            .name
+              .currentCardDetailsPropertyName Card Name
+              .currentCardDetailsPropertyValue {{card.name}}
+            .type
+              .currentCardDetailsPropertyName Type
+              .currentCardDetailsPropertyValue {{card.type}}
+            .colors
+              .currentCardDetailsPropertyName Color(s)
+              .currentCardDetailsPropertyValue {{card.colors}}
+            .cost
+              .currentCardDetailsPropertyName Cost
+              .currentCardDetailsPropertyValue {{card.cost}}
+            .textBox
+              .currentCardDetailsPropertyName Text
+              .currentCardDetailsPropertyValue {{card.text}}
+            .number
+              .currentCardDetailsPropertyName Number
+              .currentCardDetailsPropertyValue {{card.number}}/{{set.card_count}}
+
+    .rightContainer
+      .setSelector
+      .currentSetCount
+      .currentSetPercentageComplete
+      .currentSetFilterOptions
+        .colorFilters
+          .colorsWhite
+          .colorsBlue
+          .colorsBlack
+          .colorsRed
+          .colorsGreen
+        .cardList
 
     if preloadHTML
       script(type="text/ng-template" id="#{preloadHTMLPath}")

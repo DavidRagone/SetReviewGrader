@@ -1,4 +1,4 @@
 angular.module('set-review-grader')
-.controller('articlesController', function ($scope) {
+.controller('cardsController', function ($scope) {
   /* Do angular stuff here */
 });
