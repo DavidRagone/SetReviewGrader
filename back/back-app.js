@@ -4,7 +4,7 @@ var app = synth.app;
 
 /* Define your middleware here */
 app.use(function (req, res, next) {
-  req.appName = "set-review-grader";
+  req.appName = "setReviewGrader";
   next();
 });
 

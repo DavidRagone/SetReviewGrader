@@ -1,5 +1,6 @@
-angular.module('set-review-grader', ['ngRoute'])
-.config(function ($routeProvider, $locationProvider) {
+var setReviewGrader = angular.module('setReviewGrader', ['ngRoute']);
+
+setReviewGrader.config(function ($routeProvider, $locationProvider) {
   //$routeProvider.when('/articles', {
   //  templateUrl: '/html/articles/getIndex.html',
   //  controller: 'articlesController'

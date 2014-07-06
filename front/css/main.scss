@@ -1,55 +1,69 @@
 // TODO - consider compass, bootstrap, foundation
+$background: white;
 body {
-  background: lightslategray;
+  //background: lightslategray;
 }
 .leftContainer {
   float: left;
   height: 99vh;
-  width: 75%;
+  position: fixed;
 }
 .cardSlider {
   width: 100%;
-  h3 {
-  }
-  .gradeOptions {
+  button {
     display: block;
-    .grade {
-      float: left;
-      text-align: center;
-      width: 20%;
-    }
-  }
-  .currentCard {
-    background: #999;
-    height: 250px;
-    margin: 50px auto;
-    width: 180px;
-  }
-  .currentCardDetailsCenteringContainer {
-    // TODO - find a better way to center the middle line of the inner content w/o centering text
-    left: 35%;
-    position: relative;
-  }
-  .currentCardDetails {
-
-    .currentCardDetailsPropertyName {
-      display: inline;
-      font-weight: 600;
-    }
-    .currentCardDetailsPropertyValue {
-      display: inline;
-      padding: 4px;
-    }
-    .name { }
-    .type { }
-    .colors { }
-    .cost { }
-    .typeLine { }
-    .textBox { }
-    .number { }
+    margin: 0 auto;
+    width: 100px;
   }
 }
-.rightContainer {
+.gradeOptions {
+  display: block;
+}
+.grade {
+  border: 1px solid $background;
   float: left;
-  height: 99vh;
+  height: 350px;
+  margin-top: 20px;
+  text-align: center;
+  width: 223px;
+}
+.letter-grade {
+  //margin-top: -20px;
+  width: 20px;
+  margin: 0 auto;
+}
+#currentCard {
+  border-radius: 10px;
+  cursor: move;
+  width: 223px;
+}
+.currentGrade {
+
+}
+.rightContainer {
+  border: 1px solid black;
+  float: right;
+  margin: 50px 20px 50px 0;
+  overflow: auto;
+
+  ul {
+    list-style: none;
+    padding: 15px;
+
+    li:hover {
+      background-color: lightgray;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+
+  .currentCard {
+    background-color: lightslategray;
+    border-radius: 5px;
+  }
+}
+// Drag and drop
+//   When dragging over a droppable region
+.over {
+  border: 1px solid black;
 }

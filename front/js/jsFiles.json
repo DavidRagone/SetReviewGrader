@@ -1,4 +1,8 @@
 [
   "../bower_components/angular/angular.js",
-  "../bower_components/angular-route/angular-route.js"
+  "../bower_components/angular-route/angular-route.js",
+  "main.js",
+  "controllers/cardsCtrl.js",
+  "directives/draggable.js",
+  "directives/droppable.js"
 ]
