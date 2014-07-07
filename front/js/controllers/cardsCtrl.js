@@ -7,7 +7,7 @@ setReviewGrader.controller('cardsCtrl', function ($scope, cardsService) {
     $scope.set = cardsService.set(data);
     cardsService.groupCardsByColor($scope.cardsByColor, data.cards);
     $scope.setCard('White', $scope.cardsByColor.White[0]);
-  })
+  });
 
   $scope.setCard = function(color, card) {
     // If previous card has not been graded:
@@ -19,7 +19,7 @@ setReviewGrader.controller('cardsCtrl', function ($scope, cardsService) {
     $scope.currentColor = color;
     $scope.currentCard = card;
     $scope.currentCard.grade = 'C';
-  }
+  };
 
   $scope.nextCard = function() {
     // find index of current card in current color
@@ -40,7 +40,9 @@ setReviewGrader.controller('cardsCtrl', function ($scope, cardsService) {
         $scope.setCard(nextColor, $scope.cardsByColor[nextColor][0]);
       }
     }
-  }
+
+    resetCardLocation();
+  };
 
   $scope.prevCard = function() {
     // find index of current card in current color
@@ -61,10 +63,17 @@ setReviewGrader.controller('cardsCtrl', function ($scope, cardsService) {
         $scope.setCard(prevColor, $scope.cardsByColor[prevColor][$scope.cardsByColor[prevColor].length -1]);
       }
     }
-  }
+    resetCardLocation();
+  };
 
   $scope.updateGrade = function(grade) {
     $scope.currentCard.grade = grade;
-  }
+  };
+
+  var resetCardLocation = function() {
+    var image = document.getElementById('currentCard');
+    var defaultGradeLocation = document.getElementById('gradeC');
+    defaultGradeLocation.appendChild(image);
+  };
 
 });

@@ -14,7 +14,13 @@ html(ng-app='setReviewGrader')
       var preloadedData = !{JSON.stringify(data)};
     for jsFile in jsFiles
       script(src=jsFile)
-  body(ng-controller='cardsCtrl')
+  body(
+    ng-controller='cardsCtrl'
+    gradeable
+    navigable
+    next="nextCard()"
+    prev="prevCard()"
+  )
     .leftContainer
       h1 Magic the Gathering Set Grader
       h2 Currently grading {{ set.name }}
@@ -22,11 +28,11 @@ html(ng-app='setReviewGrader')
       .cardSlider
         button(ng-click="nextCard()") Next
         .gradeOptions
-          .grade(droppable drop="updateGrade('F')")
+          .grade#gradeF(droppable drop="updateGrade('F')")
             .letter-grade(ng-class="{currentGrade: currentCard.grade === 'F'}") F
-          .grade.gradeD(droppable drop="updateGrade('D')")
+          .grade#gradeD(droppable drop="updateGrade('D')")
             .letter-grade(ng-class="{currentGrade: currentCard.grade === 'D'}") D
-          .grade.gradeC(droppable drop="updateGrade('C')")
+          .grade#gradeC(droppable drop="updateGrade('C')")
             .letter-grade(ng-class="{currentGrade: currentCard.grade === 'C'}") C
             img(
               ng-src="{{currentCard && 'http://mtgimage.com/multiverseid/' + currentCard.multiverseid + '.jpg' || '' }}"
@@ -34,9 +40,9 @@ html(ng-app='setReviewGrader')
               draggable
             )
 
-          .grade.gradeB(droppable drop="updateGrade('B')")
+          .grade#gradeB(droppable drop="updateGrade('B')")
             .letter-grade(ng-class="{currentGrade: currentCard.grade === 'B'}") B
-          .grade.gradeA(droppable drop="updateGrade('A')")
+          .grade#gradeA(droppable drop="updateGrade('A')")
             .letter-grade(ng-class="{currentGrade: currentCard.grade === 'A'}") A
         button(ng-click="prevCard()") Previous
 

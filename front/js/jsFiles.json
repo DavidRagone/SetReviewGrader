@@ -5,5 +5,7 @@
   "controllers/cardsCtrl.js",
   "directives/draggable.js",
   "directives/droppable.js",
+  "directives/gradeable.js",
+  "directives/navigable.js",
   "services/cards.js"
 ]
