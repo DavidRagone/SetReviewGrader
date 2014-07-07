@@ -1,63 +1,13 @@
-setReviewGrader.controller('cardsCtrl', function ($scope, $http) {
-  // Get set & card json
-  $http({
-    url: "http://mtgjson.com/json/JOU.json",
-    method: "GET"
-  }).success(function(data, status, headers, config) {
-    $scope.set = {
-      cardCount: data.cards.length,
-      gradedCount: 0,
-      name: data.name,
-      percentGraded: function() {
-        // Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
-        // Shift
-        var value = (this.gradedCount / this.cardCount) * 100
-        value = value.toString().split('e');
-        value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] + 1) : 1)));
-        // Shift back
-        value = value.toString().split('e');
-        return +(value[0] + 'e' + (value[1] ? (+value[1] - 1) : -1)) + "%";
-      }
-    };
-    $scope.allCards = data.cards;
-    $scope.cardsByColor = {
-      White: [],
-      Blue: [],
-      Black: [],
-      Red: [],
-      Green: [],
-      Multicolored: [],
-      Artifact: [],
-      Land: [],
-    };
-    $scope.colors = Object.keys($scope.cardsByColor);
-    var card;
-    for (var i = 0; i < $scope.allCards.length; i++) {
-      card = $scope.allCards[i];
-      if (typeof(card.colors) == 'undefined' && card.type === 'Land') {
-        $scope.cardsByColor.Land.push(card);
-      }
-      else if (typeof(card.colors) == 'undefined' && card.type.match(/Artifact/)) {
-        $scope.cardsByColor.Artifact.push(card);
-      }
-      else if (card.colors.length > 1) {
-        $scope.cardsByColor.Multicolored.push(card);
-      }
-      else {
-        $scope.cardsByColor[card.colors[0]].push(card);
-      }
-    }
+setReviewGrader.controller('cardsCtrl', function ($scope, cardsService) {
 
+  $scope.cardsByColor = cardsService.initializeCardsByColor();
+  $scope.colors = Object.keys($scope.cardsByColor);
+
+  cardsService.fetchData().then(function(data) {
+    $scope.set = cardsService.set(data);
+    cardsService.groupCardsByColor($scope.cardsByColor, data.cards);
     $scope.setCard('White', $scope.cardsByColor.White[0]);
-  }).error(function(data, status, headers, config) {
-    console.log(data);
-  });
-  // END Get set & card json
-
-  // Update current card's grade on drag-and-drop
-  $scope.updateGrade = function(grade) {
-    $scope.currentCard.grade = grade;
-  }
+  })
 
   $scope.setCard = function(color, card) {
     // If previous card has not been graded:
@@ -112,4 +62,9 @@ setReviewGrader.controller('cardsCtrl', function ($scope, $http) {
       }
     }
   }
+
+  $scope.updateGrade = function(grade) {
+    $scope.currentCard.grade = grade;
+  }
+
 });
