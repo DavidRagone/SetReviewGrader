@@ -27,6 +27,12 @@ body {
   text-align: center;
   //width: 223px;
   width: 100px;
+  position: relative;
+
+  img {
+    position: absolute;
+    left: -50%;
+  }
 }
 .letter-grade {
   //margin-top: -20px;
