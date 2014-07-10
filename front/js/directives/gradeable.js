@@ -3,7 +3,7 @@ setReviewGrader.directive('gradeable', function () {
     scope: '&',
     link: function(scope, element, attrs) {
       element.bind("keydown keypress", function (event) {
-        var grades = ['F', 'D', 'C', 'B', 'A'];
+        var grades = ['F', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A'];
         var direction;
 
         // left arrow -> decrease grade
@@ -19,10 +19,6 @@ setReviewGrader.directive('gradeable', function () {
           var newGrade = grades[grades.indexOf(scope.currentCard.grade) + direction];
           if (typeof(newGrade) != 'undefined') {
             scope.gradeCard(newGrade);
-
-            var image = document.getElementById('currentCard');
-            var newGradeLocation = document.getElementById('grade' + newGrade);
-            newGradeLocation.appendChild(image);
           }
         }
       });

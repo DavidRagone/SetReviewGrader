@@ -9,17 +9,7 @@ setReviewGrader.service('cardsService', function ($http) {
     return {
       cardCount: data.cards.length,
       gradedCount: 0,
-      name: data.name,
-      percentGraded: function() {
-        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
-        // Shift
-        var value = (this.gradedCount / this.cardCount) * 100
-        value = value.toString().split('e');
-        value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] + 1) : 1)));
-        // Shift back
-        value = value.toString().split('e');
-        return +(value[0] + 'e' + (value[1] ? (+value[1] - 1) : -1)) + "%";
-      }
+      name: data.name
     };
   };
 

@@ -30,26 +30,39 @@ html(ng-app='setReviewGrader')
         .gradeOptions
           .grade#gradeF(droppable drop="updateGrade('F')")
             .letter-grade(ng-class="{currentGrade: currentCard.grade === 'F'}") F
-          .grade#gradeD(droppable drop="updateGrade('D')")
+          .grade(id='gradeD-' droppable drop="updateGrade('D-')")
+            .letter-grade(ng-class="{currentGrade: currentCard.grade === 'D-'}") D-
+          .grade(id='gradeD'  droppable drop="updateGrade('D')")
             .letter-grade(ng-class="{currentGrade: currentCard.grade === 'D'}") D
-          .grade#gradeC(droppable drop="updateGrade('C')")
+          .grade(id='gradeD+' droppable drop="updateGrade('D+')")
+            .letter-grade(ng-class="{currentGrade: currentCard.grade === 'D+'}") D+
+          .grade(id='gradeC-' droppable drop="updateGrade('C-')")
+            .letter-grade(ng-class="{currentGrade: currentCard.grade === 'C-'}") C-
+          .grade(id='gradeC'  droppable drop="updateGrade('C')")
             .letter-grade(ng-class="{currentGrade: currentCard.grade === 'C'}") C
             img(
               ng-src="{{currentCard && 'http://mtgimage.com/multiverseid/' + currentCard.multiverseid + '.jpg' || '' }}"
               id='currentCard'
               draggable
             )
-
-          .grade#gradeB(droppable drop="updateGrade('B')")
+          .grade(id='gradeC+' droppable drop="updateGrade('C+')")
+            .letter-grade(ng-class="{currentGrade: currentCard.grade === 'C+'}") C+
+          .grade(id='gradeB-' droppable drop="updateGrade('B-')")
+            .letter-grade(ng-class="{currentGrade: currentCard.grade === 'B-'}") B-
+          .grade(id='gradeB'  droppable drop="updateGrade('B')")
             .letter-grade(ng-class="{currentGrade: currentCard.grade === 'B'}") B
-          .grade#gradeA(droppable drop="updateGrade('A')")
+          .grade(id='gradeB+' droppable drop="updateGrade('B+')")
+            .letter-grade(ng-class="{currentGrade: currentCard.grade === 'B+'}") B+
+          .grade(id='gradeA-' droppable drop="updateGrade('A-')")
+            .letter-grade(ng-class="{currentGrade: currentCard.grade === 'A-'}") A-
+          .grade(id='gradeA'  droppable drop="updateGrade('A')")
             .letter-grade(ng-class="{currentGrade: currentCard.grade === 'A'}") A
         button(ng-click="prevCard()") Previous
 
     .rightContainer
       .setSelector(ng-bind="set.name")
       .currentSetCount(ng-bind="set.cardCount")
-      .currentSetPercentageComplete(ng-bind="set.percentGraded()")
+      .currentSetPercentageComplete(ng-bind="percentGraded()")
       .currentSetFilterOptions
         .colorFilters
           .colorsWhite
