@@ -1,4 +1,7 @@
-setReviewGrader.controller('cardsCtrl', function ($scope, cardsService) {
+setReviewGrader.controller('cardsCtrl', function ($scope, $localStorage, cardsService) {
+
+  // https://github.com/gsklee/ngStorage
+  $scope.$storage = $localStorage;
 
   $scope.cardsByColor = cardsService.initializeCardsByColor();
   $scope.colors = Object.keys($scope.cardsByColor);
@@ -13,12 +16,18 @@ setReviewGrader.controller('cardsCtrl', function ($scope, cardsService) {
     // If previous card has not been graded:
     //   set grade, mark as graded, inc count
     if ($scope.currentCard && !$scope.currentCard.graded) {
-      $scope.currentCard.graded = true;
-      $scope.set.gradedCount++;
+      $scope.gradeCard('C');
     }
     $scope.currentColor = color;
     $scope.currentCard = card;
-    $scope.currentCard.grade = 'C';
+  };
+
+  $scope.gradeCard = function(grade) {
+    if ($scope.currentCard) {
+      $scope.currentCard.grade = grade;
+      $scope.currentCard.graded = true;
+      $scope.set.gradedCount++;
+    }
   };
 
   $scope.nextCard = function() {
@@ -66,14 +75,18 @@ setReviewGrader.controller('cardsCtrl', function ($scope, cardsService) {
     resetCardLocation();
   };
 
-  $scope.updateGrade = function(grade) {
-    $scope.currentCard.grade = grade;
-  };
-
   var resetCardLocation = function() {
     var image = document.getElementById('currentCard');
-    var defaultGradeLocation = document.getElementById('gradeC');
-    defaultGradeLocation.appendChild(image);
+    // Set at default location if not yet graded
+    if (typeof($scope.currentCard.graded) == 'undefined') {
+      var defaultGradeLocation = document.getElementById('gradeC');
+      defaultGradeLocation.appendChild(image);
+    }
+    // Otherwise set where the grade is
+    else {
+      var currentGradeLocation = document.getElementById('grade' + $scope.currentCard.grade);
+      currentGradeLocation.appendChild(image);
+    }
   };
 
 });

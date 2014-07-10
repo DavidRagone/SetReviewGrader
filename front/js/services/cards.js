@@ -1,7 +1,7 @@
 setReviewGrader.service('cardsService', function ($http) {
   this.fetchData = function(callback) {
     // Return a promise that has response data
-    return $http.get("http://mtgjson.com/json/JOU.json")
+    return $http.get("http://mtgjson.com/json/M15.json")
       .then(function(response) { return response.data; });
   };
 
@@ -41,7 +41,7 @@ setReviewGrader.service('cardsService', function ($http) {
 
     for (var i = 0; i < allCards.length; i++) {
       card = allCards[i];
-      if (typeof(card.colors) == 'undefined' && card.type === 'Land') {
+      if (typeof(card.colors) == 'undefined' && card.type.match(/Land/)) {
         cardsByColor.Land.push(card);
       }
       else if (typeof(card.colors) == 'undefined' && card.type.match(/Artifact/)) {

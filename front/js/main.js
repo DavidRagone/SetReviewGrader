@@ -1,4 +1,4 @@
-var setReviewGrader = angular.module('setReviewGrader', ['ngRoute']);
+var setReviewGrader = angular.module('setReviewGrader', ['ngRoute', 'ngStorage']);
 
 setReviewGrader.config(function ($routeProvider, $locationProvider) {
   //$routeProvider.when('/articles', {
