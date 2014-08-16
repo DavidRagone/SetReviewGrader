@@ -14,6 +14,7 @@ setReviewGrader.controller('cardsCtrl',
       if (typeof($scope.currentCard.grade) == 'undefined') {
         $scope.currentCard.grade = 'C';
       }
+      if (typeof(resetCardLocation) != 'undefined') { resetCardLocation(); }
     };
 
     // https://github.com/gsklee/ngStorage
