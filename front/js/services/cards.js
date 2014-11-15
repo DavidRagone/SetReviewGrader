@@ -2,7 +2,9 @@ setReviewGrader.service('cardsService', function ($http) {
   this.fetchData = function(callback) {
     // Return a promise that has response data
     return $http.get("http://mtgjson.com/json/M15.json")
+  // Or, .success(function(data) {}...
       .then(function(response) { return response.data; });
+// TODO: return array of sorted cards
   };
 
   this.set = function(data) {

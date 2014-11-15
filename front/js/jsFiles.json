@@ -8,5 +8,6 @@
   "directives/droppable.js",
   "directives/gradeable.js",
   "directives/navigable.js",
-  "services/cards.js"
+  "services/cards.js",
+  "filters/cardFilter.js"
 ]

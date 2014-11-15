@@ -66,8 +66,14 @@ html(ng-app='setReviewGrader')
       .currentSetFilterOptions
         .colorFilters
           .colorsWhite
+            label White
+            input(ng-model="cardFilters.colors.White", type="checkbox")
           .colorsBlue
+            label Blue
+            input(ng-model="cardFilters.colors.Blue", type="checkbox")
           .colorsBlack
+            label Black
+            input(ng-model="cardFilters.colors.Black", type="checkbox")
           .colorsRed
           .colorsGreen
         .cardList
@@ -78,7 +84,7 @@ html(ng-app='setReviewGrader')
             {{color}}
             ul
               li(
-                ng-repeat="card in cardsByColor[color]"
+                ng-repeat="card in cardsByColor[color] | cardFilter:cardFilters"
                 ng-class="{currentCard: currentCard.multiverseid === card.multiverseid}"
                 ng-click="setCard(color, card)"
                 ng-bind="card.name"

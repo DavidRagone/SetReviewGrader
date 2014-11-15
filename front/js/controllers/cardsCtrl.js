@@ -20,6 +20,7 @@ setReviewGrader.controller('cardsCtrl',
     // https://github.com/gsklee/ngStorage
     $scope.$storage = $localStorage;
 
+    // TODO -move all this into the card service
     if ($scope.$storage.setReviewGrader) {
       console.log('LOADING FROM LOCAL STORAGE');
       // data stored in local storage as single key with large object... bad idea?
@@ -56,6 +57,10 @@ setReviewGrader.controller('cardsCtrl',
       else {
         return '0%';
       }
+    };
+
+    $scope.cardFilters = {
+      colors: {}
     };
 
     $scope.gradeCard = function(grade) {
