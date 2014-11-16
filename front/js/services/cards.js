@@ -23,6 +23,7 @@
  *     "imageName":"accursed spirit"
  *   }
  *
+ *   $localStorage via https://github.com/gsklee/ngStorage
  */
 setReviewGrader.factory('cardsService', function ($http, $localStorage, $q) {
   var data, sortedCards, set;
@@ -42,18 +43,19 @@ setReviewGrader.factory('cardsService', function ($http, $localStorage, $q) {
       // not yet in memory
       if (typeof(data) === "undefined") {
         // not stored in local storage, fetch from url
-        if (!dataStoredLocally(setCode)) {
+        if (!this.dataStoredLocally(setCode)) {
+          var that = this;
           // TODO - move url base to constant
           $http.get("http://mtgjson.com/json/" + setCode + ".json")
             .success(function(response) {
-              sortedCards = sortCards(response.data.cards);
+              sortedCards = that.sortCards(response.cards);
               set = {
                 name: response.name,
                 code: response.code,
-                cardCount: sortedCards.length;
+                cardCount: sortedCards.length,
                 gradedCount: 0
               };
-              storeLocally(set, sortedCards);
+              that.storeLocally(set, sortedCards);
               deferred.resolve({
                 sortedCards: sortedCards,
                 set: set
@@ -64,7 +66,7 @@ setReviewGrader.factory('cardsService', function ($http, $localStorage, $q) {
             });
         // load from local storage
         } else {
-          data = loadFromLocalStorage(setCode);
+          data = this.loadFromLocalStorage(setCode);
           sortedCards = data.sortedCards;
           set = data.set;
           deferred.resolve({
@@ -104,7 +106,7 @@ setReviewGrader.factory('cardsService', function ($http, $localStorage, $q) {
     loadFromLocalStorage: function(setCode) {
       return {
         set: $localStorage.setReviewGrader[setCode].set,
-        sortedCards: sortCards($localStorage.setReviewGrader[setCode].sortedCards)
+        sortedCards: this.sortCards($localStorage.setReviewGrader[setCode].sortedCards)
       };
     },
 
@@ -141,10 +143,11 @@ setReviewGrader.factory('cardsService', function ($http, $localStorage, $q) {
         'Land':         7
       };
 
+      var that = this;
       var sortByColor = function(a,b) {
-        if (colorOrder[colorOf(a)] > colorOrder[colorOf(b)]) {
+        if (colorOrder[that.colorOf(a)] > colorOrder[that.colorOf(b)]) {
           return 1;
-        } else if (colorOrder[colorOf(a)] < colorOrder[colorOf(b)]) {
+        } else if (colorOrder[that.colorOf(a)] < colorOrder[that.colorOf(b)]) {
           return -1;
         } else {
           return 0;
@@ -188,5 +191,28 @@ setReviewGrader.factory('cardsService', function ($http, $localStorage, $q) {
         return card.colors[0];
       }
     },
+
+    /**
+     * Calculates percentage of current set that has been graded, rounded to an integer
+     *
+     * @method percentGraded
+     * @param {String} : setCode
+     * @return {Number} : percent graded, e.g. 45; 0 if unknown
+     */
+    percentGraded: function(setCode) {
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
+      if (typeof(set) != 'undefined') {
+        // Shift
+        var value = (set.gradedCount / set.cardCount) * 100
+        value = value.toString().split('e');
+        value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] + 1) : 1)));
+        // Shift back
+        value = value.toString().split('e');
+        return +(value[0] + 'e' + (value[1] ? (+value[1] - 1) : -1));
+      }
+      else {
+        return 0;
+      }
+    }
   };
 });
